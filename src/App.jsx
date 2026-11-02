@@ -2,6 +2,7 @@ import "./App.css";
 import Product from "./Product";
 import "./Product.css";
 import Todo from "./Todo";
+import TodoApp from "./TodoApp";
 
 function App() {
   let products = [
@@ -22,17 +23,18 @@ function App() {
     },
   ];
 
-  
   return (
     <div>
-      {products.map((product, index) => (
+      <TodoApp />
+
+      {/* {products.map((product, index) => (
         <Product
           key={index}
           title={product.title}
           desc={product.desc}
           price={product.price}
         />
-      ))}
+      ))} */}
     </div>
   );
 }
