@@ -1,16 +1,27 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function TodoApp() {
-  let [todos, setTodos] = useState(["sample todo"]);
+  let [todos, setTodos] = useState([{ id: uuidv4(), task: "sample todo" }]);
   let [newTodo, setNewTodo] = useState("");
 
   let addNewTask = () => {
-    setTodos([...todos, newTodo]);
+    if (!newTodo.trim()) {
+      return;
+    }
+    setTodos((prevTodos) => {
+      return [...prevTodos, { id: uuidv4(), task: newTodo }];
+    });
     setNewTodo("");
   };
 
   let updateTodoValue = (event) => {
     setNewTodo(event.target.value);
+  };
+
+  let deleteTodo = (id) => {
+    console.log("deleted");
+    setTodos(todos.filter((prevTodos) => prevTodos.id != id));
   };
   return (
     <div>
@@ -21,6 +32,11 @@ export default function TodoApp() {
         type="text"
         value={newTodo}
         onChange={updateTodoValue}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            addNewTask();
+          }
+        }}
       />
       <button onClick={addNewTask}>Add Todo</button>
 
@@ -28,7 +44,12 @@ export default function TodoApp() {
       <h3>Tasks to do</h3>
       <ul>
         {todos.map((todo) => (
-          <li>{todo}</li>
+          <li key={todo.id}>
+            <span>
+              {todo.task}
+              <button onClick={() => deleteTodo(todo.id)}>delete</button>
+            </span>
+          </li>
         ))}
       </ul>
     </div>

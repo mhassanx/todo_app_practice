@@ -20,6 +20,11 @@ export default function Todo() {
         placeholder="enter todos"
         onChange={updateTodoValue}
         value={newTodo}
+        onKeyDown={(event) => {
+          if (event.key === " Enter") {
+            addNewTodo();
+          }
+        }}
       />
       <button onClick={addNewTodo}>submit</button>
       <br />
