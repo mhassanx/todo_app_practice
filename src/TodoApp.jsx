@@ -23,6 +23,17 @@ export default function TodoApp() {
     console.log("deleted");
     setTodos(todos.filter((prevTodos) => prevTodos.id != id));
   };
+
+  let upperCaseAll = () => {
+    setTodos(() =>
+      todos.map((prevTodos) => {
+        return {
+          ...prevTodos,
+          task: prevTodos.task.toUpperCase(),
+        };
+      }),
+    );
+  };
   return (
     <div>
       <h1>Todo App</h1>
@@ -52,6 +63,7 @@ export default function TodoApp() {
           </li>
         ))}
       </ul>
+      <button onClick={upperCaseAll}>UpperCaseAll</button>
     </div>
   );
 }
