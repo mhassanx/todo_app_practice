@@ -34,6 +34,14 @@ export default function TodoApp() {
       }),
     );
   };
+
+  let upperCaseOne = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, task: todo.task.toUpperCase() } : todo,
+      ),
+    );
+  };
   return (
     <div>
       <h1>Todo App</h1>
@@ -59,6 +67,9 @@ export default function TodoApp() {
             <span>
               {todo.task}
               <button onClick={() => deleteTodo(todo.id)}>delete</button>
+              <button onClick={() => upperCaseOne(todo.id)}>
+                UpperCase one
+              </button>
             </span>
           </li>
         ))}
