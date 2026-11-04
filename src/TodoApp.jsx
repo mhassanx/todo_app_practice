@@ -53,41 +53,53 @@ export default function TodoApp() {
     });
   };
   return (
-    <div>
+    <div className="todo-app">
       <h1>Todo App</h1>
 
-      <input
-        placeholder="Enter tasks to do"
-        type="text"
-        value={newTodo}
-        onChange={updateTodoValue}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            addNewTask();
-          }
-        }}
-      />
-      <button onClick={addNewTask}>Add Todo</button>
+      <div className="todo-input-row">
+        <input
+          className="todo-input"
+          placeholder="Enter tasks to do"
+          type="text"
+          value={newTodo}
+          onChange={updateTodoValue}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              addNewTask();
+            }
+          }}
+        />
+        <button className="primary-btn" onClick={addNewTask}>
+          Add Todo
+        </button>
+      </div>
 
-      <br />
       <h3>Tasks to do</h3>
-      <ul>
+      <ul className="task-list">
         {todos.map((todo) => (
-          <li key={todo.id}>
-            <span>
-              {todo.task}
-              <button onClick={() => deleteTodo(todo.id)}>delete</button>
-              <button onClick={() => upperCaseOne(todo.id)}>
-                UpperCase one
+          <li key={todo.id} className="task-item">
+            <div className="task-content">
+              <span className={`task-text ${todo.isDone ? "done" : ""}`}>
+                {todo.task}
+              </span>
+            </div>
+            <div className="task-actions">
+              <button className="action-btn danger" onClick={() => deleteTodo(todo.id)}>
+                Delete
               </button>
-              <button onClick={() => updateTodoStatus(todo.id)}>
-                mark as done {todo.isDone ? "✅" : "❌"}
+              <button className="action-btn" onClick={() => upperCaseOne(todo.id)}>
+                Uppercase one
               </button>
-            </span>
+              <button className="action-btn status" onClick={() => updateTodoStatus(todo.id)}>
+                {todo.isDone ? "Done" : "Mark done"}
+              </button>
+            </div>
           </li>
         ))}
       </ul>
-      <button onClick={upperCaseAll}>UpperCaseAll</button>
+      <button className="secondary-btn" onClick={upperCaseAll}>
+        Uppercase all
+      </button>
     </div>
   );
 }
