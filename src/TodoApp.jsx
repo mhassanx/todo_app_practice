@@ -26,32 +26,25 @@ export default function TodoApp() {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  let upperCaseAll = () => {
+  let markAllAsDone = () => {
     setTodos(() =>
       todos.map((prevTodos) => {
         return {
           ...prevTodos,
-          task: prevTodos.task.toUpperCase(),
+          isDone: !prevTodos.isDone,
         };
       }),
     );
   };
 
-  let upperCaseOne = (id) => {
+  let markAsDone = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, task: todo.task.toUpperCase() } : todo,
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo,
       ),
     );
   };
 
-  let updateTodoStatus = (id) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo,
-      );
-    });
-  };
   return (
     <div className="todo-app">
       <h1>Todo App</h1>
@@ -84,21 +77,28 @@ export default function TodoApp() {
               </span>
             </div>
             <div className="task-actions">
-              <button className="action-btn danger" onClick={() => deleteTodo(todo.id)}>
+              <button
+                className="action-btn danger"
+                onClick={() => deleteTodo(todo.id)}
+              >
                 Delete
               </button>
-              <button className="action-btn" onClick={() => upperCaseOne(todo.id)}>
-                Uppercase one
-              </button>
-              <button className="action-btn status" onClick={() => updateTodoStatus(todo.id)}>
+              <button
+                className="action-btn"
+                onClick={() => markAsDone(todo.id)}
+                style={{
+                  backgroundColor: todo.isDone ? "green" : "white",
+                  color: todo.isDone ? "white" : "black",
+                }}
+              >
                 {todo.isDone ? "Done" : "Mark done"}
               </button>
             </div>
           </li>
         ))}
       </ul>
-      <button className="secondary-btn" onClick={upperCaseAll}>
-        Uppercase all
+      <button className="secondary-btn" onClick={markAllAsDone}>
+        Mark All As Done
       </button>
     </div>
   );
