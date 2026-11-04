@@ -31,7 +31,7 @@ export default function TodoApp() {
       todos.map((prevTodos) => {
         return {
           ...prevTodos,
-          isDone: !prevTodos.isDone,
+          isDone: true,
         };
       }),
     );
